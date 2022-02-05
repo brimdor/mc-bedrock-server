@@ -57,7 +57,7 @@ spec:
                 - amd64
       containers:
         - name: mc-bedrock-server
-          image: itzg/minecraft-bedrock-server:latest
+          image: itzg/minecraft-bedrock-server
           volumeMounts:
             - name: data
               mountPath: /data
@@ -85,7 +85,7 @@ spec:
             - name: PLAYER_IDLE_TIMEOUT
               value: "0"
             - name: VERSION
-              value: "1.18"
+              value: "LATEST"
             - name: MAX_THREADS
               value: "12"
             - name: VIEW_DISTANCE
