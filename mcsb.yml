@@ -71,7 +71,7 @@ spec:
             - name: SERVER_NAME
               value: "The Bedrock and Roll"
             - name: GAMEMODE
-              value: "survival"
+              value: "creative"
             - name: DIFFICULTY
               value: "normal"
             - name: ALLOW_CHEATS
