@@ -23,7 +23,7 @@ spec:
   selector:
     app: mc-bedrock-server
   type: LoadBalancer
-  loadBalancerIP: 192.168.1.22
+  loadBalancerIP: 192.168.1.27
 
 ---
 
@@ -48,14 +48,13 @@ spec:
     spec:
       affinity:
         nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - preference:
-              matchExpressions:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
               - key: kubernetes.io/arch
                 operator: In
                 values:
                 - amd64
-            weight: 2
       containers:
         - name: mc-bedrock-server
           image: itzg/minecraft-bedrock-server:latest
@@ -63,12 +62,16 @@ spec:
             - name: data
               mountPath: /data
           env:
+            - name: PUID
+              value: "0"
+            - name: PGID
+              value: "0"
             - name: EULA
               value: "TRUE"
             - name: SERVER_NAME
-              value: "The Bedrock"
+              value: "The Bedrock and Roll"
             - name: GAMEMODE
-              value: "creative"
+              value: "survival"
             - name: DIFFICULTY
               value: "normal"
             - name: ALLOW_CHEATS
@@ -78,11 +81,11 @@ spec:
             - name: ONLINE_MODE
               value: "true"
             - name: PVP
-              value: "true"
+              value: "false"
             - name: PLAYER_IDLE_TIMEOUT
               value: "0"
-            # - name: VERSION
-            #   value: "1.17"
+            - name: VERSION
+              value: "1.18.2"
             - name: MAX_THREADS
               value: "12"
             - name: VIEW_DISTANCE
@@ -95,4 +98,4 @@ spec:
         - name: data
           nfs:
             server: 192.168.1.2
-            path: /volume2/mc-bedrock-server
+            path: /volume50/mcsb
